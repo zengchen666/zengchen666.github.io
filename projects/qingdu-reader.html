@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>轻读阅读器 · 曾晨</title>
+<meta name="description" content="本地 TXT/EPUB 中文阅读器：编码探测、中文分章、书签与进度持久化。Java 25 + JavaFX + SQLite，188 个单元测试。">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%23315b4f'/><text x='16' y='22' font-size='17' font-family='sans-serif' fill='white' text-anchor='middle'>曾</text></svg>">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="wrap">
+
+  <a class="back-link" href="../index.html">← 返回项目列表</a>
+
+  <article>
+    <header>
+      <h1>轻读阅读器</h1>
+      <p class="deck">本地 TXT/EPUB 中文阅读器，解决编码混乱与章节识别不准这两个最烦人的问题。</p>
+      <div class="meta-line">
+        <span>2026 年 9 月</span>
+        <span>个人项目 · 独立完成</span>
+        <span>状态：v0.1.0 可运行</span>
+      </div>
+    </header>
+
+    <div class="tldr">
+      <p>
+        自己读本地小说时，下载的 TXT 经常一半是 GBK 一半是 UTF-8，打开全是乱码；章节标题格式五花八门，
+        目录功能基本没法用。于是做了一个桌面阅读器：先探测编码再解码，再按中文章节规则切分，
+        配上目录侧栏、书签和四套主题。
+      </p>
+      <p>
+        我独立完成了从技术选型、功能实现到打包发布的全部工作，
+        核心逻辑写了 <strong>188 个单元测试</strong>并全部通过。
+      </p>
+    </div>
+
+    <section>
+      <h2 class="section-label">问题与背景</h2>
+      <p>
+        现成的阅读器要么只支持 UTF-8（老 TXT 直接报废），要么把整本书当一页渲染（几 MB 的文件滚动卡死），
+        要么必须装安装包。我要的是一个<strong>双击就能用、不乱码、能按章跳转</strong>的本地工具。
+      </p>
+      <p>
+        约束有三条：主语言必须是 Java（要贴 Java 岗位的技术栈）；不能依赖用户预装 JDK；
+        只能利用业余时间做，所以功能范围必须收得足够窄。
+      </p>
+    </section>
+
+    <section>
+      <h2 class="section-label">关键决策</h2>
+
+      <div class="decision">
+        <h4>用 JavaFX 而不是 Electron / Tauri</h4>
+        <dl>
+          <dt>选了什么</dt>
+          <dd>Java 25 + JavaFX，纯 Java 技术栈，不引入前端工程链。</dd>
+          <dt>放弃了</dt>
+          <dd>Electron（要写前端、包体 100MB 起）、Tauri（要写 Rust）。</dd>
+          <dt>为什么</dt>
+          <dd>这个项目的定位是「能演示的 Java 桌面工程」，不是「好看的 Web 应用」。单一语言能让我把时间花在业务逻辑上，而不是维护两套构建。</dd>
+          <dt>代价</dt>
+          <dd>JavaFX 生态小，复杂样式比 CSS 难写；界面的精致度确实不如 Web 方案。</dd>
+        </dl>
+      </div>
+
+      <div class="decision">
+        <h4>用 jlink + jpackage 打绿色包，而不是安装包</h4>
+        <dl>
+          <dt>选了什么</dt>
+          <dd>jlink 裁剪出只含所需模块的运行时，jpackage 打成免安装目录。</dd>
+          <dt>放弃了</dt>
+          <dd>只发一个 jar（要求用户自己装 JDK）、做成 exe 安装包（要处理签名和卸载）。</dd>
+          <dt>为什么</dt>
+          <dd>使用场景是「自己用 + 给别人演示」，双击就能运行最重要。裁剪后不必让用户理解什么是 JDK。</dd>
+          <dt>代价</dt>
+          <dd>打包体积仍然不小；Windows 和 macOS 必须分别在对应系统上打一次包。</dd>
+        </dl>
+      </div>
+
+      <div class="decision">
+        <h4>用 SQLite 存阅读状态</h4>
+        <dl>
+          <dt>选了什么</dt>
+          <dd>SQLite 单文件数据库，存书签、阅读进度、主题和字体设置。</dd>
+          <dt>放弃了</dt>
+          <dd class="todo-inline">（待补充：当时还考虑过什么？比如 H2、JSON 配置文件、Java Preferences API）</dd>
+          <dt>为什么</dt>
+          <dd class="todo-inline">（待补充：为什么最后选了 SQLite —— 是因为要支持多本书、要按条件查询，还是因为想把 SQL 能力放进项目里？）</dd>
+          <dt>代价</dt>
+          <dd class="todo-inline">（待补充：SQLite 在这个场景下有什么不好？比如并发写、文件锁、备份）</dd>
+        </dl>
+      </div>
+
+      <div class="todo-note">
+        第三条是留给你填的。这条恰恰最值得写——因为 SQLite 是简历上的高频词，
+        面试官很可能会问「为什么不用 Redis / MySQL」。答案不在技术本身，而在你的使用场景。
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section-label">我的贡献</h2>
+      <ul>
+        <li>
+          <strong>编码探测</strong>：读取文件头部字节判断实际编码（UTF-8 / GBK / UTF-16），
+          探测失败时按候选编码逐个尝试解码并校验，避免整本乱码。这是整个项目里最容易出边界问题的一块。
+        </li>
+        <li>
+          <strong>中文分章</strong>：按「第 X 章 / 卷 / 回 / 节」等常见模式识别章节边界，
+          兼容全角数字与空格变体，切分后生成目录树供侧栏跳转。
+        </li>
+        <li>
+          <strong>阅读状态持久化</strong>：书签位置、全书阅读进度、主题与字号设置落库，
+          重开应用恢复到上次位置。进度按字符偏移计算，而不是按滚动像素，避免换字号后位置漂移。
+        </li>
+        <li>
+          <strong>界面与交互</strong>：目录侧栏、四套主题、阅读设置面板、全书进度条、应用图标。
+        </li>
+        <li>
+          <strong>测试与打包</strong>：为核心逻辑（编码判定、分章切分、进度换算）编写 188 个单元测试，
+          并用 jlink + jpackage 产出免安装包。
+        </li>
+      </ul>
+    </section>
+
+    <section>
+      <h2 class="section-label">结果与证据</h2>
+
+      <div class="metrics">
+        <div class="metric"><span class="num">188</span><span class="label">单元测试全部通过</span></div>
+        <div class="metric"><span class="num">8</span><span class="label">核心功能</span></div>
+        <div class="metric"><span class="num">v0.1.0</span><span class="label">当前版本</span></div>
+      </div>
+
+      <p style="margin-top:18px">
+        源码：<a href="https://github.com/zengchen666">GitHub</a>（仓库地址待确认后填入）
+      </p>
+
+      <div class="todo-note">
+        这里放 1–2 张截图，位置比文字重要。<br>
+        推荐放：① 阅读主界面（能看到目录侧栏）② 打开乱码 TXT 前后对比。<br>
+        不要放代码截图，也不要放 IDE 截图。
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section-label">如果重做，会改什么</h2>
+      <p>
+        编码探测现在是「猜 + 验证」，遇到混合编码的文件仍会失败。更稳的做法是分块探测：
+        每读一段就重新判断，而不是只在文件头判断一次。另外界面层和业务层的耦合还是偏紧，
+        测试主要在 service 层，UI 层几乎没有覆盖——这是我最想重构的部分。
+      </p>
+    </section>
+
+    <section>
+      <h2 class="section-label">技术栈</h2>
+      <p style="color:var(--text-muted);font-size:14.5px">
+        Java 25 · JavaFX 25.0.4 · SQLite · JUnit · Maven · jlink / jpackage
+      </p>
+    </section>
+  </article>
+
+  <footer>
+    <p><a href="../index.html">← 返回项目列表</a> · <a href="mailto:zengchen@163.com">zengchen@163.com</a></p>
+  </footer>
+
+</div>
+</body>
+</html>
