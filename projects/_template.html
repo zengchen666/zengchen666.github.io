@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>【项目名】 · 曾晨</title>
+<meta name="description" content="【一句话说清这个项目做了什么、你负责什么、结果如何。这句话会出现在搜索结果和分享卡片里，别写「基于 xxx 的 yyy 系统」。】">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%23315b4f'/><text x='16' y='22' font-size='17' font-family='sans-serif' fill='white' text-anchor='middle'>曾</text></svg>">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="wrap">
+
+  <a class="back-link" href="../index.html">← 返回项目列表</a>
+
+  <article>
+
+    <!-- ============================================================
+         使用方式
+         1. 复制本文件为 projects/你的项目名.html（英文小写加连字符）
+         2. 全文搜索【 替换所有占位内容
+         3. 删掉所有 HTML 注释（<!-- 到 -->），注释不会显示，但留着会显乱
+         4. 在 index.html 的项目列表里加一张卡片，链接指过来
+         ============================================================ -->
+
+    <header>
+      <h1>【项目名】</h1>
+      <!-- deck 一行：项目是什么 + 解决什么问题。不要写技术栈，技术栈在页面最底部 -->
+      <p class="deck">【一句话：做的是什么，解决谁的什么问题】</p>
+      <div class="meta-line">
+        <span>【2026 年 X 月】</span>
+        <!-- 角色必须写清楚：独立完成 / 团队 3 人中的后端 / 课程项目 5 人组 -->
+        <span>【个人项目 · 独立完成】</span>
+        <span>【状态：已完成 / 进行中 / 已上线】</span>
+      </div>
+    </header>
+
+    <!-- ------------------------------------------------------------
+         TL;DR：最重要的一段。
+         HR 平均只在这个页面停留 30 秒，多数人只看这一段。
+         必须包含三件事：
+           ① 为什么要做（真实的痛点，不是「为了学习 Spring Boot」）
+           ② 你做了什么（具体到功能，不是「负责后端开发」）
+           ③ 可验证的结果（数字、测试、上线、用户）
+         ------------------------------------------------------------ -->
+    <div class="tldr">
+      <p>【第一段：当时遇到的具体问题。要具体到场景，
+        比如「下单后库存没扣减，两人同时买最后一件会超卖」，
+        而不是「传统系统存在性能瓶颈」。】</p>
+      <p>【第二段：你做了什么 + 结果。
+        「我独立完成了 X 和 Y，核心逻辑写了 N 个单元测试并全部通过。」】</p>
+    </div>
+
+    <section>
+      <h2 class="section-label">问题与背景</h2>
+      <!-- 写清三件事：谁遇到了什么问题、为什么现有方案不行、你受到的约束。
+           约束很值钱：时间紧、只能用 Java、不能改数据库表结构——
+           这些能解释你后面为什么做那些取舍。 -->
+      <p>【问题是什么，发生在什么场景下。】</p>
+      <p>【现有方案为什么不够用，或者你面临的约束是什么。】</p>
+    </section>
+
+    <section>
+      <h2 class="section-label">关键决策</h2>
+
+      <!-- ============================================================
+           这一节是整个作品集最值钱的部分，也是绝大多数人写不出来的部分。
+           每个 decision 块回答四个问题：
+             选了什么 / 放弃了什么 / 为什么 / 代价是什么
+           「代价」这一栏千万别空着。敢写代价，说明你真的想过，
+           而不是抄了一份教程。面试官会顺着这一栏往下问，而你能答上来。
+           写 2–3 个就够，不要超过 3 个。
+           ============================================================ -->
+
+      <div class="decision">
+        <h4>【决策标题：用 A 而不是 B。写成一句话，让人一眼看出是个取舍】</h4>
+        <dl>
+          <dt>选了什么</dt>
+          <dd>【具体的方案，带上版本或关键参数。】</dd>
+          <dt>放弃了</dt>
+          <dd>【被否掉的备选方案，至少写一个。】</dd>
+          <dt>为什么</dt>
+          <dd>【真实的理由。如果理由只是「教程这么写」，那就换个决策写——
+              找一个你确实做过判断的地方，哪怕很小。】</dd>
+          <dt>代价</dt>
+          <dd>【这个选择让你失去了什么。没有代价的决策不叫决策。】</dd>
+        </dl>
+      </div>
+
+      <div class="decision">
+        <h4>【第二个决策】</h4>
+        <dl>
+          <dt>选了什么</dt>
+          <dd>【…】</dd>
+          <dt>放弃了</dt>
+          <dd>【…】</dd>
+          <dt>为什么</dt>
+          <dd>【…】</dd>
+          <dt>代价</dt>
+          <dd>【…】</dd>
+        </dl>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section-label">我的贡献</h2>
+      <!-- ============================================================
+           写作规则：
+             · 每条以动词开头：实现了 / 设计了 / 重构了 / 定位并修复了
+             · 不要写「负责 XX 模块」——那是岗位描述，不是贡献
+             · 每条都要有「难点在哪」或「怎么做的」，不能只有结果
+             · 数量控制在 4–6 条，多了会稀释重点
+           反例：「负责用户模块的开发与维护」← 等于没说
+           正例：「用 Redis 缓存热点商品，把首页接口从 1.2s 降到 180ms」
+           ============================================================ -->
+      <ul>
+        <li><strong>【动词 + 做了什么】</strong>：【具体做法 + 难点或取舍】。</li>
+        <li><strong>【动词 + 做了什么】</strong>：【…】。</li>
+        <li><strong>【动词 + 做了什么】</strong>：【…】。</li>
+        <li><strong>【动词 + 做了什么】</strong>：【…】。</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2 class="section-label">结果与证据</h2>
+
+      <!-- 数字必须是可验证的。没有数字就把「单元测试数量 / 覆盖的功能数 / 上线状态」放上来。
+           实在一个数字都没有，就只放截图和链接，不要编。 -->
+      <div class="metrics">
+        <div class="metric"><span class="num">【N】</span><span class="label">【单元测试通过】</span></div>
+        <div class="metric"><span class="num">【N】</span><span class="label">【核心功能】</span></div>
+        <div class="metric"><span class="num">【v1.0】</span><span class="label">【当前状态】</span></div>
+      </div>
+
+      <p style="margin-top:18px">
+        源码：<a href="https://github.com/zengchen666">GitHub</a>　·　
+        在线演示：【如果没有就删掉这一项，别放打不开的链接】
+      </p>
+
+      <div class="todo-note">
+        截图放这里，至少一张。HR 不会去跑你的程序，截图是他们唯一能「看见」的东西。<br>
+        推荐：主界面 + 一个能体现难点的细节（报错前后对比、数据看板、复杂表单）。
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section-label">如果重做，会改什么</h2>
+      <!-- 这一节看起来是自我批评，实际上是加分项。
+           它证明你知道自己的东西哪里不完善——面试官很吃这一套，
+           而且它能提前把「你这个地方做得不好」的质疑变成你的主动陈述。 -->
+      <p>【一处真实的技术债或设计缺陷，加上你现在的解决思路。两三句话即可。】</p>
+    </section>
+
+    <section>
+      <h2 class="section-label">技术栈</h2>
+      <p style="color:var(--text-muted);font-size:14.5px">
+        【语言 · 框架 · 数据库 · 中间件 · 工具链。用间隔号分隔，一行就够。】
+      </p>
+    </section>
+
+  </article>
+
+  <footer>
+    <p><a href="../index.html">← 返回项目列表</a> · <a href="mailto:zengchen@163.com">zengchen@163.com</a></p>
+  </footer>
+
+</div>
+</body>
+</html>
