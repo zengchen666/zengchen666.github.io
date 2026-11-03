@@ -1,0 +1,353 @@
+/* ---------------------------------------------------------------
+   作品集站样式
+   设计原则：单栏、克制、大留白。不用框架，改颜色只改 :root 变量。
+   --------------------------------------------------------------- */
+
+:root {
+  --bg: #ffffff;
+  --bg-soft: #f7f7f5;
+  --text: #1a1a1a;
+  --text-muted: #67675f;
+  --text-faint: #9a9a94;
+  --line: #e6e6e0;
+  --accent: #315b4f;
+  --accent-soft: #eef3f1;
+  --warn: #8a6d3b;
+  --radius: 8px;
+  --maxw: 748px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #141514;
+    --bg-soft: #1c1e1d;
+    --text: #ececeb;
+    --text-muted: #a3a39d;
+    --text-faint: #78786f;
+    --line: #2c2f2d;
+    --accent: #82bda8;
+    --accent-soft: #1f2a26;
+    --warn: #c9a86a;
+  }
+}
+
+* { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  padding: 0 24px 96px;
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+    "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  font-size: 15px;
+  line-height: 1.78;
+  -webkit-font-smoothing: antialiased;
+}
+
+.wrap {
+  max-width: var(--maxw);
+  margin: 0 auto;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color .15s ease;
+}
+a:hover { border-bottom-color: var(--accent); }
+
+/* ---------- 页头 ---------- */
+
+.masthead { padding: 64px 0 8px; }
+
+.masthead h1 {
+  margin: 0 0 6px;
+  font-size: 32px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+}
+
+.masthead .tagline {
+  margin: 0 0 18px;
+  color: var(--text-muted);
+  font-size: 15.5px;
+}
+
+.meta-line {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  font-size: 13px;
+  color: var(--text-faint);
+  font-variant-numeric: tabular-nums;
+}
+.meta-line span { white-space: nowrap; }
+
+.meta-line a {
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--line);
+}
+.meta-line a:hover {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+/* ---------- 章节 ---------- */
+
+section { margin-top: 52px; }
+
+.section-label {
+  margin: 0 0 22px;
+  padding-bottom: 9px;
+  border-bottom: 1px solid var(--line);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+.lede { font-size: 16px; margin: 0 0 14px; }
+.lede:last-child { margin-bottom: 0; }
+
+p { margin: 0 0 14px; }
+p:last-child { margin-bottom: 0; }
+
+/* ---------- 项目卡片 ---------- */
+
+.project-list { display: flex; flex-direction: column; gap: 2px; }
+
+.project-card {
+  display: block;
+  padding: 20px 18px;
+  margin: 0 -18px;
+  border-radius: var(--radius);
+  border-bottom: 1px solid transparent;
+  color: inherit;
+  transition: background .15s ease;
+}
+a.project-card:hover {
+  background: var(--bg-soft);
+  border-bottom-color: transparent;
+}
+
+.project-card .title-row {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 5px;
+}
+
+.project-card h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.project-card .sub {
+  font-size: 13px;
+  color: var(--text-faint);
+}
+
+.project-card p {
+  margin: 0 0 9px;
+  color: var(--text-muted);
+  font-size: 14.5px;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.chip {
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: var(--bg-soft);
+  color: var(--text-faint);
+  font-size: 12px;
+  line-height: 1.7;
+  white-space: nowrap;
+}
+
+/* 未整理的项目：视觉降级，一眼看出状态 */
+
+.project-card.pending { cursor: default; opacity: .62; }
+.project-card.pending .chip { background: transparent; border: 1px dashed var(--line); }
+
+.status-flag {
+  padding: 1px 7px;
+  border-radius: 3px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: 11.5px;
+  font-weight: 500;
+}
+.status-flag.todo {
+  background: transparent;
+  border: 1px dashed var(--line);
+  color: var(--text-faint);
+  font-weight: 400;
+}
+
+/* ---------- 技能 ---------- */
+
+.skill-grid {
+  display: grid;
+  grid-template-columns: 128px 1fr;
+  gap: 12px 20px;
+  font-size: 14.5px;
+}
+.skill-grid dt { color: var(--text-faint); font-size: 13.5px; }
+.skill-grid dd { margin: 0; }
+
+/* ---------- 内部页面（项目详情） ---------- */
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 26px;
+  font-size: 13.5px;
+  color: var(--text-faint);
+  border-bottom: none;
+}
+.back-link:hover { color: var(--accent); border-bottom: none; }
+
+article > header { padding-bottom: 6px; }
+
+article h1 {
+  margin: 0 0 8px;
+  font-size: 28px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+}
+
+article .deck {
+  margin: 0 0 18px;
+  font-size: 16px;
+  color: var(--text-muted);
+}
+
+article h3 {
+  margin: 28px 0 10px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+article ul, article ol { margin: 0 0 14px; padding-left: 22px; }
+article li { margin-bottom: 7px; }
+article li::marker { color: var(--text-faint); }
+
+/* 摘要块：HR 只读这一段也要能懂 */
+
+.tldr {
+  margin: 26px 0 0;
+  padding: 18px 20px;
+  border-left: 2px solid var(--accent);
+  background: var(--bg-soft);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  font-size: 15px;
+}
+.tldr p:last-child { margin-bottom: 0; }
+
+/* 决策块：每本书里最值钱的部分 */
+
+.decision {
+  margin: 0 0 16px;
+  padding: 16px 18px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+.decision h4 {
+  margin: 0 0 10px;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+.decision dl {
+  margin: 0;
+  display: grid;
+  grid-template-columns: 76px 1fr;
+  gap: 7px 12px;
+  font-size: 14.5px;
+}
+.decision dt {
+  color: var(--text-faint);
+  font-size: 13px;
+  padding-top: 1px;
+}
+.decision dd { margin: 0; color: var(--text-muted); }
+
+/* 待填写的占位内容：视觉上和正文区分开，防止自己忘了补 */
+
+.todo-inline {
+  color: var(--warn);
+  border-bottom: 1px dashed currentColor;
+}
+
+/* 结果数字 */
+
+.metrics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 28px 40px;
+  margin: 18px 0 4px;
+}
+.metric .num {
+  display: block;
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.3;
+}
+.metric .label {
+  font-size: 12.5px;
+  color: var(--text-faint);
+}
+
+/* 占位符：明确标出还没写的地方，避免自己忘了 */
+
+.todo-note {
+  margin: 12px 0;
+  padding: 10px 14px;
+  border: 1px dashed var(--warn);
+  border-radius: var(--radius);
+  color: var(--warn);
+  font-size: 13.5px;
+}
+
+/* ---------- 页脚 ---------- */
+
+footer {
+  margin-top: 64px;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+  font-size: 13.5px;
+  color: var(--text-faint);
+}
+footer a { color: var(--text-muted); }
+
+/* ---------- 移动端 ---------- */
+
+@media (max-width: 560px) {
+  body { padding: 0 18px 64px; font-size: 14.5px; }
+  .masthead { padding-top: 44px; }
+  .masthead h1 { font-size: 26px; }
+  .project-card { padding: 18px 14px; margin: 0 -14px; }
+  .skill-grid { grid-template-columns: 1fr; gap: 4px 0; }
+  .skill-grid dt { margin-top: 12px; }
+  .decision dl { grid-template-columns: 1fr; gap: 3px; }
+  .decision dt { margin-top: 6px; }
+  .metrics { gap: 20px 32px; }
+  article h1 { font-size: 23px; }
+}
